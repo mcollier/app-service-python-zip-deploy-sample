@@ -25,22 +25,8 @@ if [[ -z "$APPLICATION_NAME" ]]; then
   exit 1
 fi
 
+host_name=$(az webapp show --resource-group "$RESOURCE_GROUP" --name "$APPLICATION_NAME" -o json --query defaultHostName -o tsv)
 
-mkdir -p "$script_dir/deployment"
-cp "$script_dir/source/main.py" "$script_dir/deployment/"
-cp "$script_dir/source/requirements.txt" "$script_dir/deployment/"
+echo "Host name: $host_name"
 
-pushd deployment
-
-pip install -r requirements.txt -t .python_packages
-
-zip -r ../deployment.zip .
-
-popd
-
-
-az webapp deploy \
-    --resource-group $RESOURCE_GROUP \
-    --name $APPLICATION_NAME \
-    --type zip \
-    --src-path deployment.zip
+watch curl -s "https://$host_name"
