@@ -32,7 +32,8 @@ cp "$script_dir/source/requirements.txt" "$script_dir/deployment/"
 
 pushd deployment
 
-pip install -r requirements.txt -t .python_packages
+# pip install -r requirements.txt -t .python_packages
+pip install -r requirements.txt -t lib/python3.9/site-packages
 
 zip -r ../deployment.zip .
 
@@ -43,4 +44,5 @@ az webapp deploy \
     --resource-group $RESOURCE_GROUP \
     --name $APPLICATION_NAME \
     --type zip \
-    --src-path deployment.zip
+    --src-path deployment.zip \
+    --verbose
