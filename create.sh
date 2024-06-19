@@ -48,9 +48,9 @@ az webapp create \
     --runtime "PYTHON|3.9"
 
 az webapp config appsettings set \
-    --resource-group $RESOURCE_GROUP \
-    --name $APPLICATION_NAME \
-    --settings SCM_DO_BUILD_DURING_DEPLOYMENT=True
+  --resource-group $RESOURCE_GROUP \
+  --name $APPLICATION_NAME \
+  --settings WEBSITE_RUN_FROM_PACKAGE=1
 
 az webapp config set \
     --resource-group $RESOURCE_GROUP \
